@@ -13,7 +13,7 @@ steps:
       - 'compute'
       - 'instances'
       - 'update-container'
-      - 'dulam-flask-instance'
+      - 'yerragunta-flask-instance'
       - '--zone=us-central1-a'
       - '--container-image=gcr.io/$PROJECT_ID/my-flask-app:$COMMIT_SHA'
 
