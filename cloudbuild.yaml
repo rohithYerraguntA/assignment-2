@@ -1,0 +1,22 @@
+steps:
+  # Step 1: Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/my-flask-app:$COMMIT_SHA', '.']
+
+  # Step 2: Push the Docker image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/my-flask-app:$COMMIT_SHA']
+
+  # Step 3: Deploy the Docker image to the Compute Engine instance
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'compute'
+      - 'instances'
+      - 'update-container'
+      - 'dulam-flask-instance'
+      - '--zone=us-central1-a'
+      - '--container-image=gcr.io/$PROJECT_ID/my-flask-app:$COMMIT_SHA'
+
+# Substitutes the $COMMIT_SHA value with the Git commit ID.
+substitutions:
+  _COMMIT_SHA: "${SHORT_SHA}"
