@@ -17,7 +17,7 @@ steps:
       - '--zone=us-central1-a'
       - '--container-image=gcr.io/$PROJECT_ID/my-flask-app:$COMMIT_SHA'
 
-# Substitutions: The SHORT_SHA is automatically provided by Cloud Build.
-# Use the default commit hash from the source code repository to tag the image.
-substitutions:
-  _COMMIT_SHA: "${SHORT_SHA}"
+# Specify the custom service account for the build
+serviceAccount: '993661805488-compute@developer.gserviceaccount.com'
+
+# Specify the bucket where build logs will be stored
